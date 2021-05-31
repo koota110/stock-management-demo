@@ -9,7 +9,7 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue';
 import { FilterItem } from '~/types/filterItem';
-import { FilterCondition } from '~/types/FilterCondition';
+import { FilterCondition } from '~/types/filterCondition';
 import { TableHeader } from '~/types/tableHeader';
 import dataTable from '~/components/atoms/dataTable.vue';
 import filter from '~/components/molucues/filter.vue';

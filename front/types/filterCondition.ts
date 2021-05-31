@@ -1,4 +1,4 @@
-export interface FilterConditin {
+export interface FilterCondition {
   name: string;
   value: string;
   begin: Date;

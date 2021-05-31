@@ -1,6 +1,6 @@
 <template>
   <v-data-table
-    :header="headers"
+    :headers="headers"
     :items="items"
     class="elevation-1"
     :items-per-page="-1"
@@ -13,8 +13,6 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue';
 import { TableHeader } from '~/types/tableHeader';
-import { FilterItem } from '~/types/filterItem';
-import { FilterCondition } from '~/types/FilterCondition';
 
 export default Vue.extend({
   props: {

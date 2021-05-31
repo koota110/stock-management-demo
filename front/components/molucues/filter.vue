@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col v-for="(i, header) in headers">
+    <v-col v-for="(i, header) in headers" :key="header.name">
       <v-text-filed v-if="header.objectType == 1" v-model="items[i].value">
       </v-text-filed>
       <v-select
@@ -18,7 +18,7 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue';
 import { FilterItem } from '~/types/filterItem';
-import { FilterCondition } from '~/types/FilterCondition';
+import { FilterCondition } from '~/types/filterCondition';
 
 export default Vue.extend({
   props: {
