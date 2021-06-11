@@ -1,5 +1,6 @@
 <template>
   <v-data-table
+    v-bind="$attrs"
     :headers="headers"
     :items="items"
     class="elevation-1"

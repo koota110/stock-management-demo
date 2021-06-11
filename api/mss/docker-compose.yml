@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  sms-mss-api:
+    build:
+      context: ../
+      dockerfile: mss/Dockerfile
+    container_name: sms-mss-api
+    networks:
+      - sms-mss
+    ports:
+      - "8082:80"
+    env_file:
+      - .env
+
+  sms-mss-db:
+    image: mysql:5.7
+    container_name: sms-mss-db
+    networks:
+      - sms-mss
+    ports:
+      - "3406:3306"
+    volumes:
+      - ./db/init.d:/docker-entrypoint-initdb.d
+      - ./db/conf.d:/etc/mysql/conf.d
+    env_file:
+      - db/.env
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  wait:
+    image: jwilder/dockerize:0.6.1
+    networks:
+      - sms-mss
+
+networks:
+  sms-mss:
+    name: sms-mss

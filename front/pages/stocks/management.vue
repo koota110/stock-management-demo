@@ -72,6 +72,7 @@ export default Vue.extend({
         {
           objectType: 2,
           name: '在庫名',
+          key: 'name',
           combos: {
             items: [
               { id: 1, name: 'トマト' },
@@ -84,10 +85,10 @@ export default Vue.extend({
         },
         {
           objectType: 1,
-          name: '在庫名',
-          combos: {},
+          name: '備考',
+          key: 'remarks',
         },
-      ],
+      ] as FilterItem[],
       condition: [
         {
           name: '',

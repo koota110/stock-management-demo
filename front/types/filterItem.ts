@@ -1,7 +1,8 @@
 export interface FilterItem {
   objectType: number;
   name: string;
-  combos:{
+  key: string;
+  combos: {
     items: Object[];
     keyName: string;
     valueName: string;

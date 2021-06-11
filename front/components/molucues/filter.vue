@@ -1,20 +1,27 @@
 <template>
   <v-row>
-    <v-col v-for="(i, header) in headers" :key="header.name">
-      <v-text-filed v-if="header.objectType == 1" v-model="items[i].value">
-      </v-text-filed>
+    <v-col v-for="(header, index) in headers" :key="header.name">
+      <v-text-field
+        v-if="header.objectType == 1"
+        v-model="condition[index].value"
+        :placeholder="header.name"
+        @input="filter"
+      >
+      </v-text-field>
       <v-select
-        v-model="items[i].value"
+        v-else
+        v-model="select"
         :label="header.name"
-        :items="header.combo.items"
-        item-text="header.combo.valueName"
-        item-value="header.combo.keyName"
+        :items="header.combos.items"
+        :item-text="header.combos.valueName"
+        :item-value="header.combos.keyName"
+        @change="filter(header)"
+        return-object
         clearable
       />
     </v-col>
   </v-row>
 </template>
-
 <script lang="ts">
 import Vue, { PropType } from 'vue';
 import { FilterItem } from '~/types/filterItem';
@@ -26,9 +33,34 @@ export default Vue.extend({
       type: Array as PropType<FilterItem[]>,
       required: true,
     },
-    items: {
-      type: Array as PropType<FilterCondition[]>,
-      required: true,
+  },
+  data() {
+    return {
+      condition: [] as FilterCondition[],
+      select: '',
+    };
+  },
+  created() {
+    this.headers.forEach((v) => {
+      this.condition.push({
+        name: v.name,
+      } as FilterCondition);
+    });
+  },
+  methods: {
+    filter(header: FilterItem) {
+      if (header.objectType === 2) {
+        let ref = this.condition.find((v) => v.name === header.name);
+        if (!ref) {
+          return;
+        }
+        if (!this.select) {
+          ref.value = '';
+        } else {
+          ref.value = this.select[header.combos.valueName];
+        }
+      }
+      this.$emit('filter', this.condition);
     },
   },
 });
